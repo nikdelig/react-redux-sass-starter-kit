@@ -13,7 +13,7 @@ const config = {
       rules: [{
           test: /\.jsx?$/,
           exclude: /node_modules/,
-          use: ['babel-loader']
+          use: ['babel-loader'],
       }]
   },
   plugins: [

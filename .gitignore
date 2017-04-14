@@ -1,5 +1,7 @@
 /node_modules
-bundle.js
+node_modules
+./node_modules
+
 npm-debug.log
 
 # IntelliJ
@@ -17,7 +19,7 @@ npm-debug.log
 
 .AppleDB
 .AppleDesktop
-Network Trash Folder
+
 Temporary Items
 .apdisk
 
