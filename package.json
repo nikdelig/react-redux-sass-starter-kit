@@ -25,6 +25,7 @@
     "gulp-csso": "^3.0.0",
     "gulp-sass": "^3.1.0",
     "gulp-watch": "^4.3.11",
+    "gulp-webpack": "^1.5.0",
     "html-webpack-plugin": "^2.28.0",
     "node-sass": "^4.5.2",
     "react": "^15.5.4",
