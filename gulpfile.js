@@ -4,11 +4,23 @@ var webpack = require('gulp-webpack');
 var minifyCSS = require('gulp-csso');
 var sourcemaps = require('gulp-sourcemaps');
 var clean = require('gulp-clean');
+var imagemin = require('gulp-imagemin');
 
-gulp.task('sass', function () {
+gulp.task('clean', function() {
+    return gulp.src('dist')
+    .pipe(clean());
+});
+
+gulp.task('sass', ['clean'], function () {
     return gulp.src('./src/sass/**/*.sass')
       .pipe(sass.sync().on('error', sass.logError))
       .pipe(gulp.dest('./dist/css'));
+});
+
+gulp.task('images', ['clean'], function() {
+    gulp.src('src/media/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('dist/media'))
 });
 
 gulp.task('default', ['clean'], function() {
@@ -17,9 +29,4 @@ gulp.task('default', ['clean'], function() {
       .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('clean', function() {
-    return gulp.src('./dist')
-    .pipe(clean());
-});
-
-gulp.task('default', ['sass', 'images', 'clean']);
+gulp.task('default', ['sass', 'images']);

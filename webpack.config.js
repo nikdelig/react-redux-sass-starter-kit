@@ -15,11 +15,34 @@ var config = {
         filename: 'app.js',
     },
     module: {
-        rules: [{
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            use: ['babel-loader'],
-        }]
+        rules: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                use: ['babel-loader'],
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    {loader: 'style-loader'},
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                            includePaths: [
+                                path.resolve(__dirname, 'node_modules/foundation-sites/scss'),
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin(),
