@@ -1,3 +1,7 @@
+extends: airbnb-base
 rules:
     indent: ["error", 4, { "SwitchCase": 1 }]
     no-empty: ["error", { "allowEmptyCatch": true }]
+
+env:
+    browser: true

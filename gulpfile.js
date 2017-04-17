@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var csso = require('gulp-csso');
 var webpack = require('gulp-webpack');
 var sourcemaps = require('gulp-sourcemaps');
 var clean = require('gulp-clean');
@@ -17,6 +18,11 @@ gulp.task('clean', function() {
 gulp.task('sass', function () {
     return gulp.src('./src/sass/**/*.sass')
       .pipe(sass.sync().on('error', sass.logError))
+      .pipe(csso({
+          restructure: false,
+          sourceMap: true,
+          debug: true
+      }))
       .pipe(gulp.dest('./dist/css'));
 });
 

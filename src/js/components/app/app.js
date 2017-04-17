@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
-export default class App extends Component {
-  render() {
-    return (
-      <div>React simple starter</div>
-    );
-  }
+class App extends Component {
+    render() {
+        return (
+          <div>
+            <div className="skata">React simple starter</div>
+          </div>
+        );
+    }
 }
