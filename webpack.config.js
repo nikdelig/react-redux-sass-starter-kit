@@ -14,17 +14,23 @@ var config = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'app.js',
     },
-    module: {
+    modules: {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: /node_modules/,
+                exclude: /(node_modules|bower_components)/,
                 use: ['babel-loader'],
+                query: {
+                    cacheDirectory: true,
+                    presets: ['react', 'es2015', 'stage-0']
+                },
             },
             {
                 test: /\.scss$/,
                 use: [
-                    {loader: 'style-loader'},
+                    {
+                        loader: 'style-loader'
+                    },
                     {
                         loader: 'css-loader',
                         options: {
