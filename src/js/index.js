@@ -10,9 +10,12 @@ import reducers from './reducers';
 const createStoreWithMiddleware = applyMiddleware()(createStore);
 const main = document.querySelector('.main');
 
-render(
+
+ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
-  </Provider>
-  , main,
-);
+    <Router history={history}>
+      <Route path="/" component={App} />
+    </Router>
+  </Provider>,
+  document.getElementById('root')
+)

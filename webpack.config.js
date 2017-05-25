@@ -13,15 +13,17 @@ const config = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'app.js',
     },
-    modules: {
+    module: {
         rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
-                use: ['babel-loader'],
-                query: {
-                    cacheDirectory: true,
-                    presets: ['react', 'es2015', 'stage-0'],
+                use: {
+                    loader: 'babel-loader',
+                    query: {
+                        cacheDirectory: true,
+                        presets: ['react', 'es2015', 'stage-0'],
+                    },
                 },
             },
             {
