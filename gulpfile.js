@@ -3,16 +3,9 @@ const sass = require('gulp-sass');
 const csso = require('gulp-csso');
 const clean = require('gulp-clean');
 const imagemin = require('gulp-imagemin');
-const webpack = require('webpack');
-const webpackStream = require('webpack-stream');
-const named = require('vinyl-named');
-const watch = require('gulp-watch');
+const webpack = require('webpack-stream');
+const autoprefixer = require('gulp-autoprefixer');
 
-// Dist folder cleanup
-gulp.task('clean', () => {
-    gulp.src('dist')
-    .pipe(clean());
-});
 
 // Sass files
 gulp.task('sass', () => {
@@ -21,37 +14,50 @@ gulp.task('sass', () => {
       .pipe(csso({
           restructure: false,
           sourceMap: true,
-          debug: true,
+          debug: true
       }))
-      .pipe(gulp.dest('./dist/css'));
+      .pipe(clean('./dist/css'))
+      .pipe(gulp.dest('./dist/css'))
+      .pipe(autoprefixer({
+          browsers: ['last 2 versions'],
+          cascade: false
+      }))
+      .pipe(gulp.dest('dist'));
 });
 
 // Images minify
 gulp.task('images', () => {
     gulp.src('src/media/*')
-    .pipe(imagemin())
+    .pipe(imagemin([
+        imagemin.gifsicle({ interlaced: true }),
+        imagemin.jpegtran({ progressive: true }),
+        imagemin.optipng({ optimizationLevel: 5 }),
+        imagemin.svgo({ plugins: [{ removeViewBox: true }]
+        })
+    ], {
+        verbose: false
+    }))
+    .pipe(clean('./dist/media'))
     .pipe(gulp.dest('dist/media'));
 });
 
-
-gulp.task('webpack', () => {
-    gulp.src('./src/js/index.js')
-        .pipe(webpackStream(require('./webpack.config'), webpack))
-        .pipe(gulp.dest('dist/'));
-});
-
-gulp.task('default', ['clean'], () => {
-    watch(['./app/**/*.js', './test/*.js'], () => {
-        gulp.src(['./src/js/**/*.js', './test/posts.js'])
-          .pipe(named())
-          .pipe(webpack(require('./webpack.config.js')))
-          .pipe(gulp.dest('./dist'));
-    });
-});
-
+// Watch task
 gulp.task('watch', () => {
     gulp.watch('./src/sass/*.sass', ['sass']);
     gulp.watch('./src/js/**/*.js', ['webpack']);
 });
 
-gulp.task('default', ['webpack', 'sass', 'images', 'watch']);
+// Server task
+gulp.task('server', () => {
+    require('./server'); // eslint-disable-line global-require
+});
+
+// Webpack task
+gulp.task('webpack', () => {
+    gulp.src('./src/js/index.js')
+    .pipe(webpack(require('./webpack.config.js'))) // eslint-disable-line global-require
+    .pipe(clean('./dist/bundle.js'))
+    .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('default', ['sass', 'images', 'webpack', 'server', 'watch']);

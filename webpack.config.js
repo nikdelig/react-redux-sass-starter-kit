@@ -2,63 +2,59 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
-const config = {
-    devtool: 'source-map',
+module.exports = {
+    watch: true,
     entry: [
         'babel-polyfill',
-        'webpack/hot/dev-server',
-        './src/js/index.js',
+        './src/js/index.js'
     ],
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'app.js',
-    },
+
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.js?$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
                     query: {
-                        cacheDirectory: true,
-                        presets: ['react', 'es2015', 'stage-0'],
-                    },
-                },
-            },
-            {
-                test: /\.scss$/,
-                exclude: /(node_modules|bower_components)/,
-                use: [
-                    {
-                        loader: 'style-loader',
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                        },
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true,
-                            includePaths: [
-                                path.resolve(__dirname, 'node_modules/foundation-sites/scss'),
-                            ],
-                        },
-                    },
-                ],
-            },
-        ],
+                        cacheDirectory: false,
+                        presets: ['react', 'es2015']
+                    }
+                }
+            }
+        ]
     },
+
     plugins: [
+        new webpack.HotModuleReplacementPlugin(), // Enable HMR
         new webpack.optimize.UglifyJsPlugin(),
         new HtmlWebpackPlugin({
-            template: './src/index.html',
-            filename: 'index.html',
+            template: './src/index.html'
         }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        })
     ],
-};
 
-module.exports = config;
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
+    },
+
+    devServer: {
+        inline: true,
+        hot: true, // Tell the dev-server we're using HMR
+        contentBase: path.resolve(__dirname, 'dist'),
+        compress: true,
+        open: 'http://localhost:8080',
+        port: 8080,
+        publicPath: '/',
+        overlay: {
+            warnings: true,
+            errors: true
+        }
+    }
+};

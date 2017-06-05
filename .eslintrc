@@ -1,7 +1,14 @@
-extends: airbnb-base
+extends: airbnb-base/legacy
+
+env:
+    node: true
+
 rules:
     indent: ["error", 4, { "SwitchCase": 1 }]
     no-empty: ["error", { "allowEmptyCatch": true }]
-
-env:
-    browser: true
+    max-len: ["error", { "code": 120 }]
+parserOptions:
+    ecmaVersion: 6
+    sourceType: module
+    ecmaFeatures:
+        jsx: true
