@@ -9,9 +9,6 @@ npm-debug.log
 *.iml
 /.idea
 
-./dist
-/dist
-
 DS_Store
 .DS_Store
 *.DS_Store

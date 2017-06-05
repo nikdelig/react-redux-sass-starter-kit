@@ -1,9 +1,11 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     watch: true,
+    devtool: 'source-map',
     entry: [
         'babel-polyfill',
         './src/js/index.js'
@@ -28,6 +30,7 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(), // Enable HMR
         new webpack.optimize.UglifyJsPlugin(),
+        new OpenBrowserPlugin({ url: 'http://localhost:8080' }),
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
@@ -47,7 +50,9 @@ module.exports = {
     devServer: {
         inline: true,
         hot: true, // Tell the dev-server we're using HMR
+        progress: true,
         contentBase: path.join(__dirname, './dist'),
+        watchContentBase: true,
         compress: true,
         publicPath: './dist',
         open: 'http://localhost:8080',

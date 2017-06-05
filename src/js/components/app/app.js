@@ -1,8 +1,9 @@
 import React from 'react';
+import store from '../../reducers/index';
 
 const App = () => {
-    console.log(this);
-    console.log('foo');
+    console.log(store);
+    console.log('bar');
     return (
         <div>
             <div className="skata foo">React simple starter</div>

@@ -1,0 +1,1 @@
+webpackHotUpdate(0,{214:function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var a=r(143),c=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"",t=arguments[1];switch(t.type){case"SET":return t.name;default:return e}},n=(0,a.combineReducers)({set:c});t.default=(0,a.createStore)(n,{},(0,a.applyMiddleware)())}});
