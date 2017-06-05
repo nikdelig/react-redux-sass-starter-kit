@@ -40,21 +40,24 @@ module.exports = {
 
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, './dist'),
         publicPath: '/'
     },
 
     devServer: {
         inline: true,
         hot: true, // Tell the dev-server we're using HMR
-        contentBase: path.resolve(__dirname, 'dist'),
+        contentBase: path.join(__dirname, './dist'),
         compress: true,
+        publicPath: './dist',
         open: 'http://localhost:8080',
         port: 8080,
-        publicPath: '/',
         overlay: {
             warnings: true,
             errors: true
+        },
+        staticOptions: {
+            redirect: true
         }
     }
 };

@@ -3,7 +3,8 @@ const sass = require('gulp-sass');
 const csso = require('gulp-csso');
 const clean = require('gulp-clean');
 const imagemin = require('gulp-imagemin');
-const webpack = require('webpack-stream');
+const webpack = require('webpack');
+var webpackStream = require('webpack-stream');
 const autoprefixer = require('gulp-autoprefixer');
 
 
@@ -44,7 +45,6 @@ gulp.task('images', () => {
 // Watch task
 gulp.task('watch', () => {
     gulp.watch('./src/sass/*.sass', ['sass']);
-    gulp.watch('./src/js/**/*.js', ['webpack']);
 });
 
 // Server task
@@ -55,7 +55,7 @@ gulp.task('server', () => {
 // Webpack task
 gulp.task('webpack', () => {
     gulp.src('./src/js/index.js')
-    .pipe(webpack(require('./webpack.config.js'))) // eslint-disable-line global-require
+    .pipe(webpackStream(require('./webpack.config.js'), webpack))// eslint-disable-line global-require
     .pipe(clean('./dist/bundle.js'))
     .pipe(gulp.dest('dist/'));
 });

@@ -1,0 +1,22 @@
+root: true
+parser: babel-eslint
+extends: airbnb
+
+env:
+    browser: true
+
+rules:
+    indent: ["error", 4, { "SwitchCase": 1 }]
+    no-empty: ["error", { "allowEmptyCatch": true }]
+    max-len: ["error", { "code": 120 }]
+    arrow-parens: ["error", "as-needed", { "requireForBlockBody": false }]
+    react/jsx-indent: [2, 4]
+    react/jsx-indent-props: [2, 4]
+    react/jsx-filename-extension: [2, { "extensions": ['.jsx', '.js'] }]
+    react/forbid-prop-types: ["off"]
+    react/no-danger: ["off"]
+    react/require-default-props: ["off"]
+    react/prop-types:
+        - 0
+        - ignore:
+            - children
