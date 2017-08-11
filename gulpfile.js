@@ -9,26 +9,24 @@ const autoprefixer = require('gulp-autoprefixer');
 
 // Sass files
 gulp.task('sass', () => {
-    gulp.src('./src/sass/**/*.sass')
-      .pipe(clean('./dist/css'))
+    gulp.src('./src/sass/app.sass')
       .pipe(sass.sync().on('error', sass.logError))
       .pipe(csso({
           restructure: false,
           sourceMap: true,
           debug: true
       }))
-      .pipe(gulp.dest('./dist/css'))
+      .pipe(clean('./dist'))
       .pipe(autoprefixer({
           browsers: ['last 2 versions'],
           cascade: false
       }))
-      .pipe(gulp.dest('dist'));
+      .pipe(gulp.dest('dist/'));
 });
 
 // Images minify
 gulp.task('images', () => {
     gulp.src('src/media/*')
-    .pipe(clean('./dist/media'))
     .pipe(imagemin([
         imagemin.gifsicle({ interlaced: true }),
         imagemin.jpegtran({ progressive: true }),
@@ -38,6 +36,7 @@ gulp.task('images', () => {
     ], {
         verbose: false
     }))
+    .pipe(clean('./dist/media'))
     .pipe(gulp.dest('dist/media'));
 });
 

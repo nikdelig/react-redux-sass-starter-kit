@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Starter kit with React, Sass and Babel",
   "main": "index.js",
-  "repository": "https://github.com/nikdelig/react-redux-sass-starter-kit",
+  "repository": "https://github.com/nikdelig/react-sass-kit",
   "scripts": {
     "start": "npm install && npm update && gulp default",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
