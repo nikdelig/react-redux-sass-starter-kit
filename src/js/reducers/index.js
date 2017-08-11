@@ -1,17 +1,7 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { combineReducers } from 'redux';
 
-const set = (state = '', action) => {
-    switch (action.type) {
-        case 'SET':
-            return action.name;
-        default:
-            return state;
-    }
-};
+import location from './location';
 
-const mode = combineReducers({
-    set,
+export default combineReducers({
+    location,
 });
-
-
-export default createStore(mode, {}, applyMiddleware());

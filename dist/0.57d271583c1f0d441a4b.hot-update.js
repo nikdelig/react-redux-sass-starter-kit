@@ -1,1 +1,0 @@
-webpackHotUpdate(0,{213:function(e,t,a){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var l=a(25),o=function(e){return e&&e.__esModule?e:{default:e}}(l),n=function(){return console.log(void 0),console.log("bar"),o.default.createElement("div",null,o.default.createElement("div",{className:"skata foo"},"React simple starter"))};t.default=n}});
